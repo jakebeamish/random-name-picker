@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+body {
+	text-align: center;
+	font-family: "Sans serif";
+}
+
+			h1, p, li, label {
+				/* color: #243E36; */
+			}
+
+			p, kbd {
+				font-size: 1rem;
+			}
+
+			#resultDisplay {
+				font-size: 4rem;
+				margin: 20px;
+			}
+
+			#spinButton {
+				font-size: 1.5rem;
+				padding: 10px 20px;
+				cursor: pointer;
+			}
+
+			.chosenName {
+				text-decoration: line-through;
+				color: gray;
+			}
+
+			#nameList {
+				list-style: none;
+				font-size: 1.5rem;
+			}
+
+			.hidden {
+				display: none;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Random Name Picker</h1>
+		<label for="nameInput"
+					 >Add names individually or as a comma-separated list.<br />
+					 Press <kbd>Enter</kbd> to add name(s). Names must be unique.
+		</label>
+		<br />
+		<input
+				type="text"
+				name="nameInput"
+				id="nameInput"
+				placeholder="Add names here..."
+				/>
+		<button id="addButton">Add</button>
+		<br />
+		<hr />
+		<button id="spinButton"></button>
+		<div id="slotMachine">
+			<p id="resultDisplay"></p>
+		</div>
+		<ul id="nameList"></ul>
+		<script src="script.js"></script>
+	</body>
+</html>
