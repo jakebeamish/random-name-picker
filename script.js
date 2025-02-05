@@ -118,7 +118,8 @@ class UIManager {
 
 	handleAddName() {
 		const input = this.nameInput.value.trim();
-		if (!input) return; // Input must not be empty
+		// Input must not be empty
+		if (!input) return;
 		// If input has commas, turn input into an array of trimmed strings
 		let array = input.includes(",")
 			? input
@@ -151,6 +152,10 @@ class UIManager {
 		});
 	}
 
+	/**
+	 * Creates an li for each name in the list
+	 * Adds "chosenName" class to names that have already been chosen
+	 */
 	updateNameList() {
 		this.nameList.innerHTML = "";
 		this.randomSelector.originalNames.forEach((name) => {
@@ -184,6 +189,8 @@ class UIManager {
 }
 
 const randomSelector = new RandomSelector([]);
+
+// Initialise SelectionAnimator instance, suppy updateDisplay function
 const selectionAnimator = new SelectionAnimator({
 	updateDisplay: (name) =>
 		(document.querySelector("#resultDisplay").textContent = name),
