@@ -2,16 +2,22 @@
 <html>
 	<head>
 		<style>
-body {
-	text-align: center;
-	font-family: "Sans serif";
-}
-
-			h1, p, li, label {
-				/* color: #243E36; */
+			body {
+				text-align: center;
+				font-family: "Sans serif";
+				background: #eee;
 			}
 
-			p, kbd {
+			h1,
+			p,
+			li,
+			label,
+			button {
+				color: #444;
+			}
+
+			p,
+			kbd {
 				font-size: 1rem;
 			}
 
@@ -39,22 +45,21 @@ body {
 			.hidden {
 				display: none;
 			}
-
 		</style>
 	</head>
 	<body>
 		<h1>Random Name Picker</h1>
 		<label for="nameInput"
-					 >Add names individually or as a comma-separated list.<br />
-					 Press <kbd>Enter</kbd> to add name(s). Names must be unique.
+			>Add names individually or as a comma-separated list.<br />
+			Press <kbd>Enter</kbd> to add name(s). Names must be unique.
 		</label>
 		<br />
 		<input
-				type="text"
-				name="nameInput"
-				id="nameInput"
-				placeholder="Add names here..."
-				/>
+			type="text"
+			name="nameInput"
+			id="nameInput"
+			placeholder="Add names here..."
+		/>
 		<button id="addButton">Add</button>
 		<br />
 		<hr />
