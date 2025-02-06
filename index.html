@@ -1,66 +1,18 @@
 <!doctype html>
 <html>
 	<head>
-		<style>
-			body {
-				text-align: center;
-				font-family: "Sans serif";
-				background: #eee;
-			}
-
-			h1,
-			p,
-			li,
-			label,
-			button {
-				color: #444;
-			}
-
-			p,
-			kbd {
-				font-size: 1rem;
-			}
-
-			#resultDisplay {
-				font-size: 4rem;
-				margin: 20px;
-				height: 7rem;
-			}
-
-			#spinButton {
-				font-size: 1.5rem;
-				padding: 10px 20px;
-				cursor: pointer;
-			}
-
-			.chosenName {
-				text-decoration: line-through;
-				color: gray;
-			}
-
-			#nameList {
-				list-style: none;
-				font-size: 1.5rem;
-				display: block;
-			}
-
-			#nameList li {
-				display: inline-block;
-				padding-right: 1rem;
-			}
-
-			.hidden {
-				display: none;
-			}
-		</style>
+		<link href="style.css" rel="stylesheet" />
 	</head>
 	<body>
+		<header>
+		<input class="toggle" type="checkbox" onclick="toggleTheme()">
 		<h1>Random Name Picker</h1>
+		<p>
 		<label for="nameInput"
 			>Add names individually or as a comma-separated list.<br />
 			Press <kbd>Enter</kbd> to add name(s). Names must be unique.
 		</label>
-		<br />
+		</p>
 		<input
 			type="text"
 			name="nameInput"
@@ -68,13 +20,24 @@
 			placeholder="Add names here..."
 		/>
 		<button id="addButton">Add</button>
-		<br />
-		<hr />
+		<button id="clearButton">Clear</button>
+		</header>
+		<ul id="nameList"></ul>
 		<button id="spinButton" class="hidden"></button>
 		<div id="slotMachine">
 			<p id="resultDisplay"></p>
 		</div>
-		<ul id="nameList"></ul>
+		<footer>
+			<p>Made by <a href="https://jakebeamish.com/">Jake</a> in 2025 ~ View repo on <a href="https://github.com/jakebeamish/random-name-picker">GitHub</a></p>
+		</footer>
 		<script src="script.js"></script>
+		<script>
+			const toggleTheme = () => {
+				const root = document.documentElement;
+				const newTheme =
+					root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+				root.setAttribute("data-theme", newTheme);
+			};
+		</script>
 	</body>
 </html>

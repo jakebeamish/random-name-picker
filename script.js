@@ -43,6 +43,11 @@ class RandomSelector {
 	reset() {
 		this.remainingNames = [...this.originalNames];
 	}
+
+	clear() {
+		this.originalNames = [];
+		this.reset();
+	}
 }
 
 class SelectionAnimator {
@@ -59,10 +64,10 @@ class SelectionAnimator {
 		let index = 0;
 
 		// if there's only one name left, show it after 100ms, otherwise 2000ms
-		let timeoutLength = names.length == 1 ? 100 : 2000;
+		let timeoutLength = names.length == 1 ? 500 : 1500;
 
 		// scroll slower as fewer names remain to be chosen
-		let intervalLength = 300 / names.length;
+		let intervalLength = 700 / names.length;
 
 		const interval = setInterval(() => {
 			this.uiElements.updateDisplay(names[index % names.length]);
@@ -89,6 +94,7 @@ class UIManager {
 		// UI Elements
 		this.spinButton = document.querySelector("#spinButton");
 		this.addButton = document.querySelector("#addButton");
+		this.clearButton = document.querySelector("#clearButton");
 		this.nameInput = document.querySelector("#nameInput");
 		this.display = document.querySelector("#resultDisplay");
 		this.nameList = document.querySelector("#nameList");
@@ -99,6 +105,9 @@ class UIManager {
 		});
 		this.addButton.addEventListener("click", () => {
 			this.handleAddName();
+		});
+		this.clearButton.addEventListener("click", () => {
+			this.handleClear();
 		});
 		this.nameInput.addEventListener("keydown", (e) => {
 			if (e.key === "Enter") {
@@ -135,6 +144,12 @@ class UIManager {
 		this.updateSpinButtonText();
 	}
 
+	handleClear() {
+		this.randomSelector.clear();
+		this.updateNameList();
+		this.updateSpinButtonText();
+	}
+
 	handleSpin() {
 		if (!this.randomSelector.hasNamesRemaining()) {
 			this.randomSelector.reset();
@@ -146,7 +161,7 @@ class UIManager {
 
 		this.selectionAnimator.spin(this.randomSelector.remainingNames, () => {
 			const chosenName = this.randomSelector.chooseName();
-			this.display.textContent = `🌟 ${chosenName} 🌟`;
+			this.display.textContent = `${chosenName} 🎉`;
 			this.updateNameList();
 			this.updateSpinButtonText();
 		});
@@ -181,9 +196,9 @@ class UIManager {
 			!this.randomSelector.hasNamesRemaining() &&
 			this.randomSelector.originalNames.length > 0
 		) {
-			this.spinButton.textContent = "Reset ♻️";
+			this.spinButton.textContent = "Reset";
 		} else {
-			this.spinButton.textContent = "Spin 🎲";
+			this.spinButton.textContent = "Play 🎲";
 		}
 	}
 }

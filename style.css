@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap");
+
+:root {
+	--text-color: black;
+	--bg-color: white;
+	--primary-color: lightblue;
+}
+
+:root[data-theme="dark"] {
+	--text-color: white;
+	--bg-color: black;
+	--primary-color: #3a31d8;
+}
+
+body {
+	background: var(--bg-color);
+	transition: background 0.5s;
+	text-align: center;
+	font-size: 2rem;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+footer {
+	margin-top: auto;
+}
+
+h1 {
+	width: 80%;
+	font-weight: 700;
+	margin: auto;
+}
+
+p, input, button {
+	font-size: 1.5rem;
+}
+
+button {
+	color: var(--text-color);
+	background: var(--primary-color);
+	font-weight: 700;
+	border-radius: 1rem;
+	border: none;
+	padding: 0.5rem 1rem;
+}
+
+input {
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
+	border: solid 1px var(--primary-color);
+}
+
+#spinButton:active {
+	transform: translateY(4px);
+	box-shadow: 0 4px #666;
+}
+
+body,
+input,
+button,
+kbd {
+	font-family: "Gaegu", "monospace";
+}
+
+h1,
+p,
+li,
+label {
+	color: var(--text-color);
+	transition: color 0.5s;
+}
+
+#resultDisplay {
+	font-size: 6rem;
+}
+
+#spinButton {
+	width: 10rem;
+	margin: auto;
+	font-size: 3rem;
+	/* padding: 1rem 2rem 1rem 2rem; */
+	cursor: pointer;
+}
+
+.chosenName {
+	color: gray;
+}
+
+#nameList {
+	list-style: none;
+	font-size: 1.5rem;
+	display: block;
+}
+
+#nameList li {
+	font-size: 2rem;
+	display: inline-block;
+	padding-right: 3rem;
+}
+
+.hidden {
+	display: none;
+}
+
+footer p {
+	font-size: 1.2rem;
+}
+
+/* Theme toggle */
+
+.toggle {
+	appearance: none;
+	float: right;
+	margin-right: 2rem;
+	/* position: relative; */
+	display: inline-block;
+	box-sizing: content-box;
+	width: 2rem;
+	height: 1rem;
+	padding: 0.3em;
+	border: none;
+	cursor: pointer;
+	border-radius: 1.5em;
+	overflow: hidden;
+	background-color: var(--primary-color);
+	transition: background ease 0.3s;
+}
+
+.toggle:before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 2;
+	width: 1rem;
+	height: 1rem;
+	font-family: system-ui;
+	font-size: 1em;
+	line-height: 2em;
+	word-spacing: 2em;
+	white-space: nowrap;
+	background: var(--bg-color);
+	border-radius: 1.5em;
+	transition: transform cubic-bezier(0.3, 1, 0.7, 1) 0.4s;
+}
+
+/* .toggle:checked { */
+/* 	background-color: #4cd964; */
+/* } */
+
+.toggle:checked:before {
+	transform: translateX(1rem);
+}
