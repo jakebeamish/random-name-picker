@@ -107,6 +107,11 @@ footer p {
 	font-size: 1.2rem;
 }
 
+a, a:visited {
+	color: var(--text-color);
+	text-decoration-color: var(--primary-color);
+}
+
 /* Theme toggle */
 
 .toggle {
