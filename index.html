@@ -1,43 +1,51 @@
 <!doctype html>
 <html lang="en-GB">
-	<head>
-		<link href="style.css" rel="stylesheet" />
-	</head>
-	<body>
-		<header>
-		<input class="toggle" type="checkbox" onclick="toggleTheme()">
-		<h1>Random Name Picker</h1>
-		<p>
-		<label for="nameInput"
-			>Add names individually or as a comma-separated list.<br />
-			Press <kbd>Enter</kbd> to add name(s). Names must be unique.
-		</label>
-		</p>
-		<input
-			type="text"
-			name="nameInput"
-			id="nameInput"
-			placeholder="Add names here..."
-		/>
-		<button id="addButton">Add</button>
-		<button id="clearButton">Clear</button>
-		</header>
-		<ul id="nameList"></ul>
-		<button id="spinButton" class="hidden"></button>
-		<div id="slotMachine">
-			<p id="resultDisplay"></p>
-		</div>
-		<footer>
-			<p>Made by <a href="https://jakebeamish.com/" target="_blank">Jake</a> in 2025 ~ View repo on <a href="https://github.com/jakebeamish/random-name-picker" target="_blank">GitHub</a></p>
-		</footer>
-		<script src="script.js"></script>
-		<script>
-			const toggleTheme = () => {
-				const root = document.documentElement;
-				const newTheme =
-					root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-				root.setAttribute("data-theme", newTheme);
-			};
-		</script>
-	</body>
+  <head>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <input class="toggle" type="checkbox" onclick="toggleTheme()" />
+      <h1>Random Name Picker</h1>
+      <p>
+        <label for="nameInput"
+          >Add names individually or as a comma-separated list.<br />
+          Press <kbd>Enter</kbd> to add name(s). Names must be unique.
+        </label>
+      </p>
+      <input
+        type="text"
+        name="nameInput"
+        id="nameInput"
+        placeholder="Add names here..."
+      />
+      <button id="addButton">Add</button>
+      <button id="clearButton">Clear</button>
+    </header>
+    <ul id="nameList"></ul>
+    <button id="spinButton" class="hidden"></button>
+    <div id="slotMachine">
+      <p id="resultDisplay"></p>
+    </div>
+    <footer>
+      <p>
+        Made by <a href="https://jakebeamish.com/" target="_blank">Jake</a> in
+        2025 ~ View repo on
+        <a
+          href="https://github.com/jakebeamish/random-name-picker"
+          target="_blank"
+          >GitHub</a
+        >
+      </p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      const toggleTheme = () => {
+        const root = document.documentElement;
+        const newTheme =
+          root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", newTheme);
+      };
+    </script>
+  </body>
 </html>
