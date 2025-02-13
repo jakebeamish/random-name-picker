@@ -1,12 +1,18 @@
-/**
- * Class for managing a list of names and performing sample without replacement
- */
 export class RandomSelector {
   /*
+   * Class for managing a list of names and performing sample without
+   * replacement. Saves the list in localStorage and checks for an existing
+   * list when initialised.
    * @param {array} names
    */
-  constructor(names) {
-    this.originalNames = names.slice();
+  constructor(names = []) {
+    const storedNames = JSON.parse(localStorage.getItem("names"));
+    if (storedNames && Array.isArray(storedNames)) {
+      this.originalNames = storedNames.slice();
+    } else {
+      this.originalNames = names.length > 0 ? names.slice() : [];
+    }
+
     this.reset();
   }
 
@@ -36,6 +42,8 @@ export class RandomSelector {
     // otherwise, add name to the array
     this.originalNames.push(name);
 
+    this.saveToLocalStorage();
+
     // copy array to remainingNames
     this.reset();
   }
@@ -46,7 +54,11 @@ export class RandomSelector {
 
   clear() {
     this.originalNames = [];
+    this.saveToLocalStorage();
     this.reset();
   }
-}
 
+  saveToLocalStorage() {
+    localStorage.setItem("names", JSON.stringify(this.originalNames));
+  }
+}

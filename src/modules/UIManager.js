@@ -35,6 +35,7 @@ export class UIManager {
 
     // Initialise UI
     this.updateDisplayText();
+    this.updateNameList();
     this.updateSpinButtonText();
   }
 
