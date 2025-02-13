@@ -45,7 +45,15 @@
         const newTheme =
           root.getAttribute("data-theme") === "dark" ? "light" : "dark";
         root.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
       };
+
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      } else {
+        document.documentElement.setAttribute("data-theme", light);
+      }
     </script>
   </body>
 </html>
