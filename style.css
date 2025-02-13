@@ -45,11 +45,13 @@ button {
   border-radius: 1rem;
   border: none;
   padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
 }
 
 input {
   border-radius: 1rem;
   padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
   border: solid 1px var(--primary-color);
 }
 
