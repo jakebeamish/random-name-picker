@@ -4,7 +4,7 @@ import { UIManager } from './modules/UIManager.js'
 
 const randomSelector = new RandomSelector([]);
 
-// Initialise SelectionAnimator instance, suppy updateDisplay function
+// Initialise SelectionAnimator instance, supply updateDisplay function
 const selectionAnimator = new SelectionAnimator({
   updateDisplay: (name) =>
     (document.querySelector("#resultDisplay").textContent = name),
