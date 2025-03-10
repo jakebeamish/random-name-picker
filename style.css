@@ -61,7 +61,7 @@ button:active {
   box-shadow: 0 2px #666;
 }
 
-input {
+#nameInput {
   border-radius: 1rem;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
@@ -141,6 +141,11 @@ a:visited {
 #groupList li .selectedGroup {
   text-decoration: underline;
   text-decoration-color: var(--primary-color);
+}
+
+.groupNameInput {
+  font-size: 1.5rem;
+  width: 6rem;
 }
 
 .hidden {

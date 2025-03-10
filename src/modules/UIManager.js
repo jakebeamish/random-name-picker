@@ -51,27 +51,18 @@ export class UIManager {
     this.updateDisplayText();
     this.updateNameList();
     this.updateGroupList();
-    console.log(RandomSelector.listGroups())
     this.updateSpinButtonText();
     // this.updateGroupsDropdown();
   }
 
   updateGroupList() {
     const groups = RandomSelector.listGroups();
-    console.log(groups)
     this.groupList.innerHTML = "";
 
     groups.forEach((groupName) => {
       const link = document.createElement("a");
       link.textContent = groupName;
       link.href = "#";
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.handleLoadGroup(groupName);
-        this.updateDisplayText();
-        this.updateGroupList();
-      });
-
       const li = document.createElement("li");
       if (groupName == this.randomSelector.groupName) {
         link.classList.add("selectedGroup");
@@ -81,11 +72,44 @@ export class UIManager {
 
       li.appendChild(link);
       this.groupList.appendChild(li);
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (groupName === this.randomSelector.groupName) {
+          this.handleEditGroupName(groupName, link)
+        } else {
+          this.handleLoadGroup(groupName);
+          this.updateDisplayText();
+          this.updateGroupList();
+        }
+      });
+
     });
   }
 
   updateDisplayText() {
     this.display.textContent = "";
+  }
+
+  handleEditGroupName(groupName, link) {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = groupName;
+    input.classList.add("groupNameInput");
+    link.replaceWith(input);
+    input.focus();
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const groupNameInput = input.value.trim();
+        if (!groupNameInput) { this.updateGroupList(); return };
+        const oldGroupName = this.randomSelector.groupName;
+        this.randomSelector.groupName = groupNameInput;
+        this.handleSaveGroup();
+        RandomSelector.deleteGroup(oldGroupName)
+        this.updateGroupList();
+      }
+    })
   }
 
   handleAddName() {
@@ -133,9 +157,8 @@ export class UIManager {
 
   handleNewGroup() {
     const numOfGroups = RandomSelector.listGroups().length;
-    this.randomSelector.groupName = `Group ${numOfGroups}`
+    this.randomSelector.groupName = `Group ${numOfGroups}`;
     this.randomSelector = new RandomSelector([], `Group ${numOfGroups + 1}`);
-    console.table(this.randomSelector)
     this.handleSaveGroup();
     this.updateNameList();
     this.updateGroupList();
@@ -148,21 +171,17 @@ export class UIManager {
   }
 
   handleDeleteGroup() {
-    console.log(`Deleting ${this.randomSelector.groupName}.`);
     RandomSelector.deleteGroup(this.randomSelector.groupName);
 
     const groups = RandomSelector.listGroups();
-    this.handleLoadGroup(groups[0]);
+    this.handleLoadGroup(groups[groups.length - 1]);
     this.updateGroupList();
-
   }
 
   handleLoadGroup(groupName) {
     this.randomSelector = RandomSelector.loadGroup(groupName);
     this.updateNameList();
     this.updateSpinButtonText();
-    console.table(this.randomSelector);
-    console.log(`Loaded ${this.randomSelector.groupName}.`);
   }
 
   /**
