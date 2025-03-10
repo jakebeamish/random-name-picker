@@ -13,8 +13,8 @@
 }
 
 :root[data-theme="dark"] {
-  --text-color: ivory;
-  --bg-color: #331311;
+  --text-color: #fff0e0;
+  --bg-color: #200301;
   --primary-color: #ddaa44;
 }
 
@@ -44,10 +44,19 @@ button {
   font-size: 1.5rem;
 }
 
+input {
+  background-color: transparent;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: solid 1px var(--primary-color);
+  transition: border 0.5s;
+}
+
 button {
   color: var(--text-color);
   background: var(--primary-color);
-  transition: background 0.5s;
+  transition: background, color 0.5s;
   font-weight: 600;
   border-radius: 1rem;
   border: none;
@@ -93,6 +102,7 @@ a,
 a:visited {
   color: var(--text-color);
   text-decoration-color: var(--primary-color);
+  transition: color, text-decoration-color 0.5s;
 }
 
 #resultDisplay {
