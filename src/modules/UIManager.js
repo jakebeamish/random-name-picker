@@ -1,10 +1,13 @@
+import { RandomSelector } from "./RandomSelector.js";
+
 export class UIManager {
   /**
-   * @param {RandomSelector}
-   * @param {SelectionAnimator}
+   * @param {RandomSelector} randomSelector
+   * @param {SelectionAnimator} selectionAnimator
    */
   constructor(randomSelector, selectionAnimator) {
     // Components
+    /** @type {RandomSelector} */
     this.randomSelector = randomSelector;
     this.selectionAnimator = selectionAnimator;
 
@@ -12,9 +15,14 @@ export class UIManager {
     this.spinButton = document.querySelector("#spinButton");
     this.addButton = document.querySelector("#addButton");
     this.clearButton = document.querySelector("#clearButton");
+    this.newGroupButton = document.querySelector("#newGroupButton");
+    this.saveGroupButton = document.querySelector("#saveGroupButton");
+    this.deleteGroupButton = document.querySelector("#deleteGroupButton");
     this.nameInput = document.querySelector("#nameInput");
+    this.groupNameInput = document.querySelector("#groupNameInput");
     this.display = document.querySelector("#resultDisplay");
     this.nameList = document.querySelector("#nameList");
+    this.groupList = document.querySelector("#groupList");
 
     // Event Listeners
     this.spinButton.addEventListener("click", () => {
@@ -26,6 +34,12 @@ export class UIManager {
     this.clearButton.addEventListener("click", () => {
       this.handleClear();
     });
+    this.newGroupButton.addEventListener("click", () => {
+      this.handleNewGroup();
+    });
+    this.deleteGroupButton.addEventListener("click", () => {
+      this.handleDeleteGroup();
+    });
     this.nameInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         this.handleAddName();
@@ -36,7 +50,38 @@ export class UIManager {
     // Initialise UI
     this.updateDisplayText();
     this.updateNameList();
+    this.updateGroupList();
+    console.log(RandomSelector.listGroups())
     this.updateSpinButtonText();
+    // this.updateGroupsDropdown();
+  }
+
+  updateGroupList() {
+    const groups = RandomSelector.listGroups();
+    console.log(groups)
+    this.groupList.innerHTML = "";
+
+    groups.forEach((groupName) => {
+      const link = document.createElement("a");
+      link.textContent = groupName;
+      link.href = "#";
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.handleLoadGroup(groupName);
+        this.updateDisplayText();
+        this.updateGroupList();
+      });
+
+      const li = document.createElement("li");
+      if (groupName == this.randomSelector.groupName) {
+        link.classList.add("selectedGroup");
+      } else {
+        link.classList.remove("selectedGroup");
+      }
+
+      li.appendChild(link);
+      this.groupList.appendChild(li);
+    });
   }
 
   updateDisplayText() {
@@ -65,6 +110,7 @@ export class UIManager {
   handleClear() {
     this.randomSelector.clear();
     this.updateNameList();
+    this.updateDisplayText();
     this.updateSpinButtonText();
   }
 
@@ -83,6 +129,40 @@ export class UIManager {
       this.updateNameList();
       this.updateSpinButtonText();
     });
+  }
+
+  handleNewGroup() {
+    const numOfGroups = RandomSelector.listGroups().length;
+    this.randomSelector.groupName = `Group ${numOfGroups}`
+    this.randomSelector = new RandomSelector([], `Group ${numOfGroups + 1}`);
+    console.table(this.randomSelector)
+    this.handleSaveGroup();
+    this.updateNameList();
+    this.updateGroupList();
+    this.updateDisplayText();
+    this.updateSpinButtonText();
+  }
+
+  handleSaveGroup() {
+    this.randomSelector.saveToLocalStorage();
+  }
+
+  handleDeleteGroup() {
+    console.log(`Deleting ${this.randomSelector.groupName}.`);
+    RandomSelector.deleteGroup(this.randomSelector.groupName);
+
+    const groups = RandomSelector.listGroups();
+    this.handleLoadGroup(groups[0]);
+    this.updateGroupList();
+
+  }
+
+  handleLoadGroup(groupName) {
+    this.randomSelector = RandomSelector.loadGroup(groupName);
+    this.updateNameList();
+    this.updateSpinButtonText();
+    console.table(this.randomSelector);
+    console.log(`Loaded ${this.randomSelector.groupName}.`);
   }
 
   /**
@@ -120,4 +200,3 @@ export class UIManager {
     }
   }
 }
-

@@ -21,11 +21,17 @@
       />
       <button id="addButton">Add</button>
       <button id="clearButton">Clear</button>
+      <br>
     </header>
     <ul id="nameList"></ul>
     <button id="spinButton" class="hidden"></button>
     <div id="slotMachine">
       <p id="resultDisplay"></p>
+    </div>
+    <div id="groupManager">
+      <ul id="groupList"></ul>
+      <button id="newGroupButton">New Group</button>
+      <button id="deleteGroupButton">Delete Group</button>
     </div>
     <footer>
       <p>
@@ -52,7 +58,7 @@
       if (savedTheme) {
         document.documentElement.setAttribute("data-theme", savedTheme);
       } else {
-        document.documentElement.setAttribute("data-theme", light);
+        // document.documentElement.setAttribute("data-theme", light);
       }
     </script>
   </body>

@@ -5,8 +5,9 @@ export class RandomSelector {
    * list when initialised.
    * @param {array} names
    */
-  constructor(names = []) {
-    const storedNames = JSON.parse(localStorage.getItem("names"));
+  constructor(names = [], groupName = "Group 1") {
+    this.groupName = groupName;
+    const storedNames = JSON.parse(localStorage.getItem("nameGroups"));
     if (storedNames && Array.isArray(storedNames)) {
       this.originalNames = storedNames.slice();
     } else {
@@ -59,6 +60,29 @@ export class RandomSelector {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem("names", JSON.stringify(this.originalNames));
+    // localStorage.setItem("names", JSON.stringify(this.originalNames));
+
+    const allGroups = JSON.parse(localStorage.getItem("nameGroups")) || {};
+
+    allGroups[this.groupName] = this.originalNames;
+    
+    localStorage.setItem("nameGroups", JSON.stringify(allGroups));
+    console.log(allGroups)
+  }
+
+  static loadGroup(groupName) {
+    const allGroups = JSON.parse(localStorage.getItem("nameGroups")) || {};
+    return new RandomSelector(allGroups[groupName] || [], groupName)
+  }
+
+  static listGroups() {
+    const allGroups = JSON.parse(localStorage.getItem("nameGroups")) || {};
+    return Object.keys(allGroups);
+  }
+
+  static deleteGroup(groupName) {
+    const allGroups = JSON.parse(localStorage.getItem("nameGroups")) || {};
+    delete allGroups[groupName];
+    localStorage.setItem("nameGroups", JSON.stringify(allGroups))
   }
 }

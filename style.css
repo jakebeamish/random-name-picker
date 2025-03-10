@@ -6,10 +6,16 @@
   --primary-color: lightblue;
 }
 
-:root[data-theme="dark"] {
+:root[data-theme="classic-dark"] {
   --text-color: white;
   --bg-color: black;
   --primary-color: #3a31d8;
+}
+
+:root[data-theme="dark"] {
+  --text-color: ivory;
+  --bg-color: #331311;
+  --primary-color: #ddaa44;
 }
 
 body {
@@ -41,11 +47,18 @@ button {
 button {
   color: var(--text-color);
   background: var(--primary-color);
-  font-weight: 700;
+  transition: background 0.5s;
+  font-weight: 600;
   border-radius: 1rem;
   border: none;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
+  width: 8rem;
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px #666;
 }
 
 input {
@@ -53,6 +66,7 @@ input {
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
   border: solid 1px var(--primary-color);
+  transition: border 0.5s;
 }
 
 #spinButton:active {
@@ -73,6 +87,12 @@ li,
 label {
   color: var(--text-color);
   transition: color 0.5s;
+}
+
+a,
+a:visited {
+  color: var(--text-color);
+  text-decoration-color: var(--primary-color);
 }
 
 #resultDisplay {
@@ -103,18 +123,32 @@ label {
   padding-right: 3rem;
 }
 
+#groupManager {
+  margin-top: auto;
+}
+
+#groupList li {
+  font-size:2rem;
+  display: inline-block;
+  padding-right: 3rem;
+}
+
+#groupList li a {
+  text-decoration: none;
+}
+
+
+#groupList li .selectedGroup {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-color);
+}
+
 .hidden {
   display: none;
 }
 
 footer p {
   font-size: 1.2rem;
-}
-
-a,
-a:visited {
-  color: var(--text-color);
-  text-decoration-color: var(--primary-color);
 }
 
 /* Theme toggle */
@@ -153,10 +187,6 @@ a:visited {
   border-radius: 1.5em;
   transition: transform cubic-bezier(0.3, 1, 0.7, 1) 0.4s;
 }
-
-/* .toggle:checked { */
-/* 	background-color: #4cd964; */
-/* } */
 
 .toggle:checked:before {
   transform: translateX(1rem);
