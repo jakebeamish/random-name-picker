@@ -121,10 +121,30 @@ a:visited {
   color: gray;
 }
 
+.deleteNameButton {
+  display: none;
+  font-size: 1.5rem;
+  width: 5rem;
+  /* margin: 1rem 1rem; */
+  padding: 0;
+}
+
+#nameList li:hover .deleteNameButton {
+  margin-bottom: 0;
+  margin-left: 0.3rem;
+  display: inline;
+}
+
+#nameList li:hover {
+  border: 1px solid var(--primary-color);
+  border-radius: 1rem;
+  padding: 0.3rem;
+  margin-right: 1rem;
+}
+
 #nameList {
   list-style: none;
-  font-size: 1.5rem;
-  display: block;
+  /* display: inline-block; */
 }
 
 #nameList li {

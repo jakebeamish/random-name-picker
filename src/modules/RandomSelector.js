@@ -49,6 +49,16 @@ export class RandomSelector {
     this.reset();
   }
 
+  removeName(name) {
+    // return if the name is not already in the array
+    if (!this.originalNames.includes(name)) return;
+
+    const index = this.originalNames.indexOf(name);
+    this.originalNames.splice(index, 1);
+    this.saveToLocalStorage();
+    this.reset();
+  }
+
   reset() {
     this.remainingNames = [...this.originalNames];
   }

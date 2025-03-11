@@ -205,6 +205,14 @@ export class UIManager {
         li.classList.add("chosenName");
       }
 
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.classList.add("deleteNameButton");
+      deleteButton.addEventListener("click", () => {
+        this.randomSelector.removeName(name);
+        this.updateNameList();
+      });
+      li.appendChild(deleteButton);
       this.nameList.appendChild(li);
     });
   }
