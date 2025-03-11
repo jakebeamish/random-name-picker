@@ -157,8 +157,15 @@ export class UIManager {
 
   handleNewGroup() {
     const numOfGroups = RandomSelector.listGroups().length;
+    console.log(RandomSelector.listGroups());
+
+    let newGroupNumber = 1;
+    while (RandomSelector.listGroups().includes(`Group ${newGroupNumber}`)) {
+      newGroupNumber++;
+    }
+
     this.randomSelector.groupName = `Group ${numOfGroups}`;
-    this.randomSelector = new RandomSelector([], `Group ${numOfGroups + 1}`);
+    this.randomSelector = new RandomSelector([], `Group ${newGroupNumber}`);
     this.handleSaveGroup();
     this.updateNameList();
     this.updateGroupList();
