@@ -1,9 +1,9 @@
 {
   "devDependencies": {
     "prettier": "3.4.2"
-  }
+  },
 	"prettier": {
 		"bracketSameLine": true,
-		"htmlWhitespaceSensitivity": "strict",
-	}
+		"htmlWhitespaceSensitivity": "strict"
+  }
 }
