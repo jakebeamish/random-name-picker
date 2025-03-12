@@ -11,3 +11,4 @@ const selectionAnimator = new SelectionAnimator({
 });
 
 const uiManager = new UIManager(randomSelector, selectionAnimator);
+uiManager.handleLoadGroup(uiManager.randomSelector.groupName);

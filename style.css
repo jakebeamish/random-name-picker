@@ -23,9 +23,11 @@ body {
   transition: background 0.5s;
   text-align: center;
   font-size: 2rem;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 0;
+  margin: 0;
 }
 
 footer {
@@ -107,15 +109,15 @@ a:visited {
 }
 
 #resultDisplay {
-  font-size: 6rem;
-  height: 1rem;
+  font-size: 5rem;
+  height: 5rem;
 }
 
 #spinButton {
   width: 10rem;
   margin: auto;
+  padding: 0;
   font-size: 3rem;
-  /* padding: 1rem 2rem 1rem 2rem; */
   cursor: pointer;
 }
 
@@ -125,35 +127,32 @@ a:visited {
 
 .deleteNameButton {
   display: none;
-  font-size: 1.5rem;
-  width: 5rem;
-  /* margin: 1rem 1rem; */
+  /* font-size: 1.5rem; */
+  /* width: 5rem; */
   padding: 0;
 }
 
 #nameList li:hover .deleteNameButton {
-  margin-bottom: 0;
-  margin-left: 0.3rem;
+  margin: 0;
+  padding: 0;
   display: inline;
 }
 
 #nameList li:hover {
   border: 1px solid var(--primary-color);
   border-radius: 1rem;
-  padding: 0.3rem;
-  margin-right: 1rem;
 }
 
 #nameList {
   list-style: none;
-  /* height: auto; */
-  /* display: inline-block; */
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 #nameList li {
   font-size: 2rem;
-  display: inline-block;
-  padding-right: 3rem;
+  margin: 0 1rem;
 }
 
 #groupManager {

@@ -117,6 +117,11 @@ export class UIManager {
     link.replaceWith(input);
     input.focus();
 
+    this.addEvent(input, "focusout", () => {
+      this.updateGroupList();
+      return;
+    });
+
     this.addEvent(input, "keydown", (e) => {
       if (e.key === "Enter") {
         const groupNameInput = input.value.trim();
@@ -218,7 +223,7 @@ export class UIManager {
       }
 
       const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Delete";
+      deleteButton.textContent = "❌";
       deleteButton.classList.add("deleteNameButton");
       this.addEvent(deleteButton, "click", () => {
         this.randomSelector.removeName(name);
@@ -240,7 +245,7 @@ export class UIManager {
       !this.randomSelector.hasNamesRemaining() &&
       this.randomSelector.originalNames.length > 0
     ) {
-      this.spinButton.textContent = "Reset ⟲";
+      this.spinButton.textContent = "Reset 🔄";
     } else {
       this.spinButton.textContent = "Play 🎲";
     }

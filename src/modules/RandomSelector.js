@@ -77,7 +77,6 @@ export class RandomSelector {
     allGroups[this.groupName] = this.originalNames;
     
     localStorage.setItem("nameGroups", JSON.stringify(allGroups));
-    console.log(allGroups)
   }
 
   static loadGroup(groupName) {
