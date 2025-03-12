@@ -76,6 +76,7 @@ button:active {
   margin-bottom: 1rem;
   border: solid 1px var(--primary-color);
   transition: border 0.5s;
+  color: var(--text-color);
 }
 
 #spinButton:active {
@@ -107,6 +108,7 @@ a:visited {
 
 #resultDisplay {
   font-size: 6rem;
+  height: 1rem;
 }
 
 #spinButton {
@@ -144,6 +146,7 @@ a:visited {
 
 #nameList {
   list-style: none;
+  /* height: auto; */
   /* display: inline-block; */
 }
 
@@ -179,7 +182,8 @@ a:visited {
 }
 
 .hidden {
-  display: none;
+  /* display: none; */
+  visibility: hidden;
 }
 
 footer p {

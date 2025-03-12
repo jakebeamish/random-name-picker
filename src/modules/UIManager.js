@@ -240,7 +240,7 @@ export class UIManager {
       !this.randomSelector.hasNamesRemaining() &&
       this.randomSelector.originalNames.length > 0
     ) {
-      this.spinButton.textContent = "Reset";
+      this.spinButton.textContent = "Reset ⟲";
     } else {
       this.spinButton.textContent = "Play 🎲";
     }
