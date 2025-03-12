@@ -56,7 +56,7 @@ export class UIManager {
    * @param {EventHandler} handler - The event handler function.
    */
   addEvent(element, event, handler) {
-    if ((!element) instanceof HTMLElement) {
+    if (!(element instanceof HTMLElement)) {
       throw new TypeError(`${element} is not a valid HTMLElement.`);
     }
     if (element) element.addEventListener(event, handler);
