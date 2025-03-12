@@ -6,6 +6,7 @@ export class UIManager {
    * @param {SelectionAnimator} selectionAnimator
    */
   constructor(randomSelector, selectionAnimator) {
+
     // Components
     /** @type {RandomSelector} */
     this.randomSelector = randomSelector;
@@ -25,6 +26,7 @@ export class UIManager {
       "groupList"
     ];
 
+    // Select HTMLElements where id corresponds to elements array
     elements.forEach((id) => (this[id] = document.querySelector(`#${id}`)));
 
     // Setup Event listeners
@@ -59,7 +61,17 @@ export class UIManager {
     if (!(element instanceof HTMLElement)) {
       throw new TypeError(`${element} is not a valid HTMLElement.`);
     }
-    if (element) element.addEventListener(event, handler);
+    element.addEventListener(event, handler);
+  }
+
+  /**
+   * Helper function for updating the UI
+   */
+  updateUI() {
+    this.updateNameList();
+    this.updateGroupList();
+    this.updateSpinButtonText();
+    this.updateDisplayText();
   }
 
   updateGroupList() {
@@ -138,23 +150,18 @@ export class UIManager {
     array.forEach((name) => this.randomSelector.addName(name));
 
     this.nameInput.value = "";
-    this.updateNameList();
-    this.updateSpinButtonText();
+    this.updateUI();
   }
 
   handleClear() {
     this.randomSelector.clear();
-    this.updateNameList();
-    this.updateDisplayText();
-    this.updateSpinButtonText();
+    this.updateUI();
   }
 
   handleSpin() {
     if (!this.randomSelector.hasNamesRemaining()) {
       this.randomSelector.reset();
-      this.updateNameList();
-      this.updateDisplayText();
-      this.updateSpinButtonText();
+      this.updateUI();
       return;
     }
 
@@ -176,10 +183,7 @@ export class UIManager {
 
     this.randomSelector = new RandomSelector([], `Group ${newGroupNumber}`);
     this.handleSaveGroup();
-    this.updateNameList();
-    this.updateGroupList();
-    this.updateDisplayText();
-    this.updateSpinButtonText();
+    this.updateUI();
   }
 
   handleSaveGroup() {
@@ -196,8 +200,7 @@ export class UIManager {
 
   handleLoadGroup(groupName) {
     this.randomSelector = RandomSelector.loadGroup(groupName);
-    this.updateNameList();
-    this.updateSpinButtonText();
+    this.updateUI();
   }
 
   /**
