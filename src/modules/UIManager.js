@@ -24,28 +24,20 @@ export class UIManager {
     this.nameList = document.querySelector("#nameList");
     this.groupList = document.querySelector("#groupList");
 
-    // Event Listeners
-    this.spinButton.addEventListener("click", () => {
-      this.handleSpin();
-    });
-    this.addButton.addEventListener("click", () => {
-      this.handleAddName();
-    });
-    this.clearButton.addEventListener("click", () => {
-      this.handleClear();
-    });
-    this.newGroupButton.addEventListener("click", () => {
-      this.handleNewGroup();
-    });
-    this.deleteGroupButton.addEventListener("click", () => {
-      this.handleDeleteGroup();
-    });
-    this.nameInput.addEventListener("keydown", (e) => {
+    // Event listeners
+    this.addEvent(this.addButton, "click", () => this.handleAddName());
+    this.addEvent(this.nameInput, "keydown", (e) => {
       if (e.key === "Enter") {
         this.handleAddName();
         e.preventDefault();
       }
     });
+    this.addEvent(this.spinButton, "click", () => this.handleSpin());
+    this.addEvent(this.clearButton, "click", () => this.handleClear());
+    this.addEvent(this.newGroupButton, "click", () => this.handleNewGroup());
+    this.addEvent(this.deleteGroupButton, "click", () =>
+      this.handleDeleteGroup()
+    );
 
     // Initialise UI
     this.updateDisplayText();
@@ -53,6 +45,19 @@ export class UIManager {
     this.updateGroupList();
     this.updateSpinButtonText();
     // this.updateGroupsDropdown();
+  }
+
+  /**
+   * Helper function for adding event listeners
+   * @param {HTMLElement} element - The target DOM element.
+   * @param {string} event - The event type ("click", "keydown", etc.)
+   * @param {EventHandler} handler - The event handler function.
+   */
+  addEvent(element, event, handler) {
+    if ((!element) instanceof HTMLElement) {
+      throw new TypeError(`${element} is not a valid HTMLElement.`);
+    }
+    if (element) element.addEventListener(event, handler);
   }
 
   updateGroupList() {
@@ -72,18 +77,18 @@ export class UIManager {
 
       li.appendChild(link);
       this.groupList.appendChild(li);
-      link.addEventListener("click", (e) => {
+
+      this.addEvent(link, "click", (e) => {
         e.preventDefault();
 
         if (groupName === this.randomSelector.groupName) {
-          this.handleEditGroupName(groupName, link)
+          this.handleEditGroupName(groupName, link);
         } else {
           this.handleLoadGroup(groupName);
           this.updateDisplayText();
           this.updateGroupList();
         }
       });
-
     });
   }
 
@@ -99,14 +104,17 @@ export class UIManager {
     link.replaceWith(input);
     input.focus();
 
-    input.addEventListener("keydown", (e) => {
+    this.addEvent(input, "keydown", (e) => {
       if (e.key === "Enter") {
         const groupNameInput = input.value.trim();
-        if (!groupNameInput) { this.updateGroupList(); return };
+        if (!groupNameInput) {
+          this.updateGroupList();
+          return;
+        }
         const oldGroupName = this.randomSelector.groupName;
         this.randomSelector.groupName = groupNameInput;
         this.handleSaveGroup();
-        RandomSelector.deleteGroup(oldGroupName)
+        RandomSelector.deleteGroup(oldGroupName);
         this.updateGroupList();
       }
     })
@@ -208,7 +216,7 @@ export class UIManager {
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Delete";
       deleteButton.classList.add("deleteNameButton");
-      deleteButton.addEventListener("click", () => {
+      this.addEvent(deleteButton, "click", () => {
         this.randomSelector.removeName(name);
         this.updateNameList();
       });
