@@ -68,13 +68,9 @@ export class UIManager {
       const link = document.createElement("a");
       link.textContent = groupName;
       link.href = "#";
-      const li = document.createElement("li");
-      if (groupName == this.randomSelector.groupName) {
-        link.classList.add("selectedGroup");
-      } else {
-        link.classList.remove("selectedGroup");
-      }
+      link.classList.toggle("selectedGroup", groupName === this.randomSelector.groupName);
 
+      const li = document.createElement("li");
       li.appendChild(link);
       this.groupList.appendChild(li);
 
@@ -226,11 +222,9 @@ export class UIManager {
   }
 
   updateSpinButtonText() {
-    if (this.randomSelector.originalNames.length < 1) {
-      this.spinButton.classList.add("hidden");
-    } else {
-      this.spinButton.classList.remove("hidden");
-    }
+
+    // Hide the spinButton if no names have been added to the group
+    this.spinButton.classList.toggle("hidden", this.randomSelector.originalNames.length < 1);
 
     if (
       !this.randomSelector.hasNamesRemaining() &&
