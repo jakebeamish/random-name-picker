@@ -11,20 +11,23 @@ export class UIManager {
     this.randomSelector = randomSelector;
     this.selectionAnimator = selectionAnimator;
 
-    // UI Elements
-    this.spinButton = document.querySelector("#spinButton");
-    this.addButton = document.querySelector("#addButton");
-    this.clearButton = document.querySelector("#clearButton");
-    this.newGroupButton = document.querySelector("#newGroupButton");
-    this.saveGroupButton = document.querySelector("#saveGroupButton");
-    this.deleteGroupButton = document.querySelector("#deleteGroupButton");
-    this.nameInput = document.querySelector("#nameInput");
-    this.groupNameInput = document.querySelector("#groupNameInput");
-    this.display = document.querySelector("#resultDisplay");
-    this.nameList = document.querySelector("#nameList");
-    this.groupList = document.querySelector("#groupList");
+    // Initialise UI Elements
+    const elements = [
+      "spinButton",
+      "addButton",
+      "clearButton",
+      "newGroupButton",
+      "saveGroupButton",
+      "deleteGroupButton",
+      "nameInput",
+      "resultDisplay",
+      "nameList",
+      "groupList"
+    ];
 
-    // Event listeners
+    elements.forEach((id) => (this[id] = document.querySelector(`#${id}`)));
+
+    // Setup Event listeners
     this.addEvent(this.addButton, "click", () => this.handleAddName());
     this.addEvent(this.nameInput, "keydown", (e) => {
       if (e.key === "Enter") {
@@ -44,7 +47,6 @@ export class UIManager {
     this.updateNameList();
     this.updateGroupList();
     this.updateSpinButtonText();
-    // this.updateGroupsDropdown();
   }
 
   /**
@@ -68,7 +70,10 @@ export class UIManager {
       const link = document.createElement("a");
       link.textContent = groupName;
       link.href = "#";
-      link.classList.toggle("selectedGroup", groupName === this.randomSelector.groupName);
+      link.classList.toggle(
+        "selectedGroup",
+        groupName === this.randomSelector.groupName
+      );
 
       const li = document.createElement("li");
       li.appendChild(link);
@@ -89,7 +94,7 @@ export class UIManager {
   }
 
   updateDisplayText() {
-    this.display.textContent = "";
+    this.resultDisplay.textContent = "";
   }
 
   handleEditGroupName(groupName, link) {
@@ -103,6 +108,7 @@ export class UIManager {
     this.addEvent(input, "keydown", (e) => {
       if (e.key === "Enter") {
         const groupNameInput = input.value.trim();
+        // If input is empty, revert to old group name
         if (!groupNameInput) {
           this.updateGroupList();
           return;
@@ -113,13 +119,14 @@ export class UIManager {
         RandomSelector.deleteGroup(oldGroupName);
         this.updateGroupList();
       }
-    })
+    });
   }
 
   handleAddName() {
     const input = this.nameInput.value.trim();
     // Input must not be empty
     if (!input) return;
+
     // If input has commas, turn input into an array of trimmed strings
     let array = input.includes(",")
       ? input
@@ -153,22 +160,20 @@ export class UIManager {
 
     this.selectionAnimator.spin(this.randomSelector.remainingNames, () => {
       const chosenName = this.randomSelector.chooseName();
-      this.display.textContent = `${chosenName} 🎉`;
+      this.resultDisplay.textContent = `${chosenName} 🎉`;
       this.updateNameList();
       this.updateSpinButtonText();
     });
   }
 
   handleNewGroup() {
-    const numOfGroups = RandomSelector.listGroups().length;
-    console.log(RandomSelector.listGroups());
-
+    // Starting with `Group 1`, check if a group already has that name. If it
+    // does, try `Group 2`, and so on.
     let newGroupNumber = 1;
     while (RandomSelector.listGroups().includes(`Group ${newGroupNumber}`)) {
       newGroupNumber++;
-    }
+    };
 
-    this.randomSelector.groupName = `Group ${numOfGroups}`;
     this.randomSelector = new RandomSelector([], `Group ${newGroupNumber}`);
     this.handleSaveGroup();
     this.updateNameList();
@@ -222,9 +227,11 @@ export class UIManager {
   }
 
   updateSpinButtonText() {
-
     // Hide the spinButton if no names have been added to the group
-    this.spinButton.classList.toggle("hidden", this.randomSelector.originalNames.length < 1);
+    this.spinButton.classList.toggle(
+      "hidden",
+      this.randomSelector.originalNames.length < 1
+    );
 
     if (
       !this.randomSelector.hasNamesRemaining() &&
